@@ -3,17 +3,10 @@
     padding: 0;
 }
 
-tr {
-   height: 30px;
-    border-bottom: 1px solid black;
-}
-
-#tableContainer {
-    margin-top: 50px;
-    margin-left: 50px;
-    margin-right: 50px;
-
-
+#ui-body {
+    margin-top: 40px;
+    margin-left: 40px;
+    margin-right: 40px;
 }
 
 #searchBox {
@@ -21,9 +14,23 @@ tr {
     height: 25px;
 }
 
-
-#tableLayout {
+#tableBody {
     width: 100%;
     margin-top: 15px;
-    /* border: 1px solid black; */
+}
+
+.tableRows {
+    display: flex;
+    align-items: center;
+    height: 35px;
+    border-bottom: 1px solid black;
+}
+
+.tableHeaderCell {
+    font-weight: bolder;
+    width: 20%;
+}
+
+.tableRowCells {
+    width: 20%;
 }

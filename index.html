@@ -4,26 +4,22 @@
     <link rel="stylesheet" href="./index.css" />
   </head>
   <body class="clearFix">
-    <div id="tableContainer">
+    <div id="ui-body">
       <div id="searchBar">
         <input id="searchBox" type="text" placeholder="Search" />
       </div>
-      <table id="tableLayout">
-        <tr>
-          <th>Checkbox</th>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Roles</th>
-          <th>Action</th>
-        </tr>
-        <tr>
-          <td> Hey!
-          </td>
-          <td>Hello</td>
-          <td>Holla</td>
-        </tr>
-      </table>
+      <div id="tableBody">
+        <div class="tableRows">
+          <div class="tableHeaderCell">
+            <input id="checkBox" type="checkbox" style="height: 15px; width: 15px;"/>
+          </div>
+          <div class="tableHeaderCell">Name</div>
+          <div class="tableHeaderCell">Email</div>
+          <div class="tableHeaderCell">Role</div>
+          <div class="tableHeaderCell">Action</div>
+        </div>
+      </div>
     </div>
-    <script src="./index.js"></script>
+    <script src="index.js"></script>
   </body>
 </html>
