@@ -1,5 +1,9 @@
-#searchBar {
-    width: 100vw;
-    height: 50px;
-    text-align: center;
+body {
+    
+}
+#searchBox {
+    width: 99vw;
+    height: 5vh;
+    margin: 0px;
+    padding: 0%;
 }
