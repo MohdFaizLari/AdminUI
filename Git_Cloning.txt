@@ -1,0 +1,12 @@
+Git Cloning =======-------------->
+
+git clone repoUrl ---> To clone the repo.
+
+git fetch origin ---> To fetch all branches.
+
+git checkout -b branch_name ---> To create new branch.
+
+git pull origin master --allow-unrelated-histories ----> To copy the master branch first time
+
+code . ----> To open vs code directly from Git bash.
+ 
