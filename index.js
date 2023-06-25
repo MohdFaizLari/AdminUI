@@ -277,11 +277,15 @@ let rowsData = [
   },
 ];
 // let rowsData = [];
+
+//-------------------------------------------Creating main Func------------------------------------------------>
+
 let createTable = () => {
-  /* ----> This condition is checking wheter the input file contains some data or it's blank only
-  according to that the code will work --------> */
+  //------------This is an arrow function.
+
   if (!rowsData.length) {
-    //---- If rowsData length is 0 it will return No data to show!
+    /* ----> This condition is checking wheter the input file contains some data or it's blank only
+    according to that the code will work --------> */
     let noDataDiv = document.createElement("div");
     noDataDiv.style.width = "100%";
     noDataDiv.style.height = "100%";
@@ -289,35 +293,27 @@ let createTable = () => {
     noDataDiv.style.textAlign = "center";
     noDataDiv.style.fontWeight = "bolder";
     noDataDiv.style.marginTop = "20%";
-    let tableBody = document.getElementById("tableBody");
-    tableBody.appendChild(noDataDiv);
+    let tableBody = document.getElementById("tableBody"); //---------------> Selecting tablebody location.
+    tableBody.appendChild(noDataDiv); //----------> Inserting the innertext in table Body.
     return;
+    //---- If rowsData length is 0 it will print No data to show!
   }
 
   //-------------------------This loop is running to create new rows inside the HTML page---------------------->
 
   for (let i = 0; i < rowsData.length; i++) {
-    let rowData = rowsData[i];
-
-    let name = rowData.name;
-    let nameSpan = document.createElement("span");
-    nameSpan.innerText = name;
-
-    let email = rowData.email;
-    let emailSpan = document.createElement("span");
-    emailSpan.innerText = email;
-
-    let role = rowData.role;
-    let roleSpan = document.createElement("span");
-    roleSpan.innerText = role;
+    let rowData = rowsData[i]; //----------------> Storing rows data one by one in rowData variable here.
 
     let tableRow = document.createElement("div"); // ---> To create new div ele.
-    tableRow.classList.add("tableRows"); //----> To add class in newly created div ele in JS.
-    // <-------------------Method-2-------------------------------->
-    // element.setAttribute()
-    // setAttribute('class', 'fixedWidth');
+    tableRow.classList.add("tableRows"); //----> To add existing class of CSS in the element.
 
-    let checkBoxCell = document.createElement("div"); //-----------> Creating div inside the new created row
+    // <-------------------Method-2-------------------------------->
+    // element.setAttribute() -------> To set attributes.
+    // setAttribute('class', 'fixedWidth'); -------------> Syntax
+    //---------------------------------------------------------------||
+
+    //------------------------------Checkbox cell starts here--------------------------->
+    let checkBoxCell = document.createElement("div"); //-----------> Creating div inside the new created row.
     checkBoxCell.classList.add("tableRowCells");
     let inputEle = document.createElement("input");
     inputEle.style.width = "15px";
@@ -326,51 +322,107 @@ let createTable = () => {
     checkBoxCell.appendChild(inputEle);
     tableRow.appendChild(checkBoxCell);
 
+    //-----------------------------Checkbox cell ends here <---------------------------||
+
+    //------------------------------Name cell starts here------------------------------->
+
     let nameCell = document.createElement("div");
+    let name = rowData.name; //------------------> Copying key values here from the input file.
+    let nameSpan = document.createElement("span"); //---------------> Creating new ele here.
+    nameSpan.innerText = name;
     nameCell.classList.add("tableRowCells");
     nameCell.appendChild(nameSpan);
     tableRow.appendChild(nameCell);
 
+    //-----------------------------Name cell ends here <---------------------------||
+
+    //------------------------------Email cell starts here------------------------------->
+
     let emailCell = document.createElement("div");
+    let email = rowData.email;
+    let emailSpan = document.createElement("span");
+    emailSpan.innerText = email;
     emailCell.classList.add("tableRowCells");
     emailCell.appendChild(emailSpan);
     tableRow.appendChild(emailCell);
 
+    //-----------------------------Email cell ends here <---------------------------||
+
+    //------------------------------Role cell starts here------------------------------->
+
     let roleCell = document.createElement("div");
+    let role = rowData.role;
+    let roleSpan = document.createElement("span");
+    roleSpan.innerText = role;
     roleCell.classList.add("tableRowCells");
     roleCell.appendChild(roleSpan);
     tableRow.appendChild(roleCell);
 
-    //--------------------------Action Cell -------------------------->
+    //-----------------------------Role cell ends here <---------------------------||
+
+    //--------------------------Action cell starts here----------------------------------->
 
     let actionCell = document.createElement("div");
-    
+
     actionCell.style.display = "flex";
     actionCell.style.alignItems = "center";
-    // actionCell.style.justifyContent = "center";
-    actionCell.style.gap = "10px"
+    actionCell.style.gap = "10px";
 
     let editButton = document.createElement("button");
     editButton.style.padding = "5px 8px 5px 8px";
-    // editButton.style.height = "25px";
     editButton.style.borderRadius = "5px";
+    editButton.style.backgroundColor = "lightgreen";
     editButton.innerText = "Edit";
     editButton.setAttribute("type", "Button");
     actionCell.appendChild(editButton);
-    
+
     let deleteButton = document.createElement("button");
     deleteButton.style.padding = "5px 8px 5px 8px";
-    // deleteButton.style.height = "25px";
     deleteButton.style.borderRadius = "5px";
-    deleteButton.setAttribute("type", "Button")
+    deleteButton.style.backgroundColor = "red";
+    deleteButton.setAttribute("type", "Button");
     deleteButton.innerText = "Delete";
     actionCell.appendChild(deleteButton);
 
     actionCell.classList.add("tableRowCells");
     tableRow.appendChild(actionCell);
 
+    //---------------------------Action cell ends here <------------------------------||
+
     let tableBody = document.getElementById("tableBody");
     tableBody.appendChild(tableRow);
   }
 };
 createTable();
+
+let addSection = () => {
+  let section = document.createElement("section");
+  section.style.display = "flex";
+  section.style.alignItems = "center";
+  section.style.width = "100%";
+  section.style.height = "50px";
+  section.style.gap = "50px";
+
+  let deleteSelectedButton = document.createElement("button");
+  deleteSelectedButton.style.padding = "10px 50px 10px 50px";
+  deleteSelectedButton.style.marginLeft = "10px";
+  deleteSelectedButton.style.borderRadius = "50px 50px 50px 50px";
+  deleteSelectedButton.style.backgroundColor = "red";
+  deleteSelectedButton.innerText = "Delete Selected";
+  section.appendChild(deleteSelectedButton);
+
+
+  
+ for (let i=0;i<10;i++) {
+  let pageButtons = document.createElement("button");
+  pageButtons.style.width = "30px";
+  pageButtons.style.height = "30px";
+  pageButtons.style.borderRadius = "100%";
+  pageButtons.style.backgroundColor = "white";
+  pageButtons.innerText = i+1;
+  section.appendChild(pageButtons);
+ }
+  let tableBody = document.getElementById("tableBody");
+  tableBody.appendChild(section);
+};
+addSection();
