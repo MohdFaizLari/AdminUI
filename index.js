@@ -323,9 +323,8 @@ let addSection = () => {
 
 let deleteTableRow = (e) => {
   let rowId = e.target.id;
-  let targetIndex = 0;
   let rowEle = document.getElementById(`row-${rowId}`);
-  rowEle.parentNode.removeChild(rowEle);
+  rowEle.parentNode.removeChild(rowEle); //--------> removing row ele here.
   console.log(e);
 };
 
