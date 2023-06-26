@@ -278,14 +278,66 @@ let rowsData = [
 ];
 // let rowsData = [];
 
+//----------------------This function is used for creating a bottom section of the table----------------------->
+
+let addSection = () => {
+  if (rowsData.length > 0) {
+    //<---------------This condition will check the rowsData length and it will work accordingly----------->
+
+    let section = document.createElement("section"); //-----------> Creating section ele here.
+    section.style.display = "flex";
+    section.style.alignItems = "center";
+    section.style.width = "100%";
+    section.style.height = "50px";
+    section.style.gap = "50px";
+
+    //----------------Adding delete selected button here-------------->
+
+    let deleteSelectedButton = document.createElement("button");
+    deleteSelectedButton.classList.add("buttonPadding");
+    deleteSelectedButton.style.marginLeft = "10px";
+    deleteSelectedButton.style.border = "1px solid black";
+    deleteSelectedButton.style.borderRadius = "50px 50px 50px 50px";
+    deleteSelectedButton.style.backgroundColor = "red";
+    deleteSelectedButton.innerText = "Delete Selected";
+    section.appendChild(deleteSelectedButton);
+
+    //--------------Adding page numbers here by the help of loop--------------->
+
+    let n = Math.ceil(rowsData.length / 10); //----------> Using math.ceil() method to store the value.
+
+    for (let i = 0; i < n; i++) {
+      let pageButtons = document.createElement("button");
+      pageButtons.classList.add("buttonPadding");
+      pageButtons.style.borderRadius = "100%";
+      pageButtons.style.border = "1px solid black";
+      pageButtons.style.backgroundColor = "white";
+      pageButtons.innerText = i + 1;
+      section.appendChild(pageButtons);
+    }
+
+    let tableBody = document.getElementById("tableBody");
+    tableBody.appendChild(section); //----------> Inserting section part here in the table body.
+  }
+};
+
+let deleteTableRow = (e) => {
+  let rowId = e.target.id;
+  let targetIndex = 0;
+  let rowEle = document.getElementById(`row-${rowId}`);
+  rowEle.parentNode.removeChild(rowEle);
+  console.log(e);
+};
+
 //-------------------------------------------Creating main Func------------------------------------------------>
 
 let createTable = () => {
   //------------This is an arrow function.
-
+  console.log("createTable", rowsData);
   if (!rowsData.length) {
     /* ----> This condition is checking wheter the input file contains some data or it's blank only
     according to that the code will work --------> */
+
     let noDataDiv = document.createElement("div");
     noDataDiv.style.width = "100%";
     noDataDiv.style.height = "100%";
@@ -304,8 +356,11 @@ let createTable = () => {
   for (let i = 0; i < rowsData.length; i++) {
     let rowData = rowsData[i]; //----------------> Storing rows data one by one in rowData variable here.
 
+    let rowId = rowData.id;
+
     let tableRow = document.createElement("div"); // ---> To create new div ele.
     tableRow.classList.add("tableRows"); //----> To add existing class of CSS in the element.
+    tableRow.setAttribute("id", `row-${rowId}`);
 
     // <-------------------Method-2-------------------------------->
     // element.setAttribute() -------> To set attributes.
@@ -315,6 +370,7 @@ let createTable = () => {
     //------------------------------Checkbox cell starts here--------------------------->
     let checkBoxCell = document.createElement("div"); //-----------> Creating div inside the new created row.
     checkBoxCell.classList.add("tableRowCells");
+    checkBoxCell.classList.add("marginRightLeft"); //----------> Added for margin.
     let inputEle = document.createElement("input");
     inputEle.style.width = "15px";
     inputEle.style.height = "15px";
@@ -363,66 +419,44 @@ let createTable = () => {
     //--------------------------Action cell starts here----------------------------------->
 
     let actionCell = document.createElement("div");
-
     actionCell.style.display = "flex";
     actionCell.style.alignItems = "center";
     actionCell.style.gap = "10px";
 
+    //-----------------Edit button------------------------>
+
     let editButton = document.createElement("button");
-    editButton.style.padding = "5px 8px 5px 8px";
+    // editButton.onclick = ;
+    editButton.classList.add("buttonPadding");
+    editButton.style.border = "1px solid black";
     editButton.style.borderRadius = "5px";
-    editButton.style.backgroundColor = "lightgreen";
+    editButton.style.backgroundColor = "white";
     editButton.innerText = "Edit";
     editButton.setAttribute("type", "Button");
     actionCell.appendChild(editButton);
 
+    //---------------Delete button------------------------->
+
     let deleteButton = document.createElement("button");
-    deleteButton.style.padding = "5px 8px 5px 8px";
+
+    deleteButton.classList.add("buttonPadding");
+    deleteButton.style.border = "white";
     deleteButton.style.borderRadius = "5px";
     deleteButton.style.backgroundColor = "red";
+    deleteButton.addEventListener("click", deleteTableRow);
     deleteButton.setAttribute("type", "Button");
+    deleteButton.setAttribute("id", rowId);
     deleteButton.innerText = "Delete";
     actionCell.appendChild(deleteButton);
 
     actionCell.classList.add("tableRowCells");
-    tableRow.appendChild(actionCell);
+    tableRow.appendChild(actionCell); //--------------> Inserting action cell here.
 
     //---------------------------Action cell ends here <------------------------------||
 
     let tableBody = document.getElementById("tableBody");
     tableBody.appendChild(tableRow);
   }
+  addSection();
 };
 createTable();
-
-let addSection = () => {
-  let section = document.createElement("section");
-  section.style.display = "flex";
-  section.style.alignItems = "center";
-  section.style.width = "100%";
-  section.style.height = "50px";
-  section.style.gap = "50px";
-
-  let deleteSelectedButton = document.createElement("button");
-  deleteSelectedButton.style.padding = "10px 50px 10px 50px";
-  deleteSelectedButton.style.marginLeft = "10px";
-  deleteSelectedButton.style.borderRadius = "50px 50px 50px 50px";
-  deleteSelectedButton.style.backgroundColor = "red";
-  deleteSelectedButton.innerText = "Delete Selected";
-  section.appendChild(deleteSelectedButton);
-
-
-  
- for (let i=0;i<10;i++) {
-  let pageButtons = document.createElement("button");
-  pageButtons.style.width = "30px";
-  pageButtons.style.height = "30px";
-  pageButtons.style.borderRadius = "100%";
-  pageButtons.style.backgroundColor = "white";
-  pageButtons.innerText = i+1;
-  section.appendChild(pageButtons);
- }
-  let tableBody = document.getElementById("tableBody");
-  tableBody.appendChild(section);
-};
-addSection();
