@@ -294,7 +294,7 @@ let addSection = () => {
     //----------------Adding delete selected button here-------------->
 
     let deleteSelectedButton = document.createElement("button");
-    deleteSelectedButton.style.padding = "10px 50px 10px 50px";
+    deleteSelectedButton.classList.add("buttonPadding");
     deleteSelectedButton.style.marginLeft = "10px";
     deleteSelectedButton.style.border = "1px solid black";
     deleteSelectedButton.style.borderRadius = "50px 50px 50px 50px";
@@ -308,8 +308,7 @@ let addSection = () => {
 
     for (let i = 0; i < n; i++) {
       let pageButtons = document.createElement("button");
-      pageButtons.style.width = "30px";
-      pageButtons.style.height = "30px";
+      pageButtons.classList.add("buttonPadding");
       pageButtons.style.borderRadius = "100%";
       pageButtons.style.border = "1px solid black";
       pageButtons.style.backgroundColor = "white";
@@ -322,19 +321,23 @@ let addSection = () => {
   }
 };
 
-let rowCellsDelete = () => {
-  let arg = "Deleted";
-  console.log(arg);
+let deleteTableRow = (e) => {
+  let rowId = e.target.id;
+  let targetIndex = 0;
+  let rowEle = document.getElementById(`row-${rowId}`);
+  rowEle.parentNode.removeChild(rowEle);
+  console.log(e);
 };
 
 //-------------------------------------------Creating main Func------------------------------------------------>
 
 let createTable = () => {
   //------------This is an arrow function.
-
+  console.log("createTable", rowsData);
   if (!rowsData.length) {
     /* ----> This condition is checking wheter the input file contains some data or it's blank only
     according to that the code will work --------> */
+
     let noDataDiv = document.createElement("div");
     noDataDiv.style.width = "100%";
     noDataDiv.style.height = "100%";
@@ -353,8 +356,11 @@ let createTable = () => {
   for (let i = 0; i < rowsData.length; i++) {
     let rowData = rowsData[i]; //----------------> Storing rows data one by one in rowData variable here.
 
+    let rowId = rowData.id;
+
     let tableRow = document.createElement("div"); // ---> To create new div ele.
     tableRow.classList.add("tableRows"); //----> To add existing class of CSS in the element.
+    tableRow.setAttribute("id", `row-${rowId}`);
 
     // <-------------------Method-2-------------------------------->
     // element.setAttribute() -------> To set attributes.
@@ -364,6 +370,7 @@ let createTable = () => {
     //------------------------------Checkbox cell starts here--------------------------->
     let checkBoxCell = document.createElement("div"); //-----------> Creating div inside the new created row.
     checkBoxCell.classList.add("tableRowCells");
+    checkBoxCell.classList.add("marginRightLeft"); //----------> Added for margin.
     let inputEle = document.createElement("input");
     inputEle.style.width = "15px";
     inputEle.style.height = "15px";
@@ -420,7 +427,7 @@ let createTable = () => {
 
     let editButton = document.createElement("button");
     // editButton.onclick = ;
-    editButton.style.padding = "5px 8px 5px 8px";
+    editButton.classList.add("buttonPadding");
     editButton.style.border = "1px solid black";
     editButton.style.borderRadius = "5px";
     editButton.style.backgroundColor = "white";
@@ -432,12 +439,13 @@ let createTable = () => {
 
     let deleteButton = document.createElement("button");
 
-    deleteButton.style.padding = "5px 8px 5px 8px";
+    deleteButton.classList.add("buttonPadding");
     deleteButton.style.border = "white";
     deleteButton.style.borderRadius = "5px";
     deleteButton.style.backgroundColor = "red";
-    deleteButton.addEventListener("click", rowCellsDelete);
+    deleteButton.addEventListener("click", deleteTableRow);
     deleteButton.setAttribute("type", "Button");
+    deleteButton.setAttribute("id", rowId);
     deleteButton.innerText = "Delete";
     actionCell.appendChild(deleteButton);
 
