@@ -1,0 +1,29 @@
+<html>
+	<head>
+		<title>AdminUI</title>
+		<link rel="stylesheet" href="./../css/index.css" />
+	</head>
+	<body class="clearFix">
+		<div id="ui-body">
+			<div class="searchBar marginRightLeft">
+				<input id="searchBox" type="text" placeholder="Search" />
+			</div>
+			<div id="tableBody">
+				<div class="tableRows">
+					<div class="tableHeaderCell marginRightLeft">
+						<input
+							id="selectAllTableRows"
+							type="checkbox"
+							style="height: 15px; width: 15px"
+							onchange= "allTableRowsSelection()"/>
+					</div>
+					<div class="tableHeaderCell">Name</div>
+					<div class="tableHeaderCell">Email</div>
+					<div class="tableHeaderCell">Role</div>
+					<div class="tableHeaderCell">Action</div>
+				</div>
+			</div>
+		</div>
+		<script src="./../javaScript/index.js"></script>
+	</body>
+</html>
