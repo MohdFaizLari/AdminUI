@@ -1,5 +1,5 @@
 body {
-    background-color: rgb(14, 44, 64);
+    background-color: #8AAAE5;
 }
 
 .clearFix {
@@ -11,7 +11,7 @@ body {
     margin-top: 40px;
     margin-left: 40px;
     margin-right: 40px;
-    background-color: rgb(60, 102, 130);
+    background-color: #7799d7;
 }
 
 #searchBox {
@@ -23,6 +23,24 @@ body {
 #tableBody {
     width: 100%;
     margin-top: 15px;
+    background-color: white;
+}
+
+.tableHeaderRow {
+    display: flex;
+    align-items: center;
+    height: 35px;
+    width: 100%;
+    background-color: #7799d7;
+    font-weight: bolder;
+}
+
+#tableHeaderCells {
+    width: 20%;
+}
+
+#selectAllTableRows {
+    margin-left: 10px;
 }
 
 .tableRows {
@@ -32,13 +50,12 @@ body {
     border-bottom: 1px solid black;
 }
 
-.tableHeaderCell {
-    font-weight: bolder;
+.tableRowCells {
     width: 20%;
 }
 
-.tableRowCells {
-    width: 20%;
+.deleteButtons {
+    /* background-color: blue; */
 }
 
 .buttonPadding {

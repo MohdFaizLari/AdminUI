@@ -21,7 +21,7 @@ let addSection = () => {
     deleteSelectedButton.style.marginLeft = "10px";
     deleteSelectedButton.style.border = "1px solid black";
     deleteSelectedButton.style.borderRadius = "50px 50px 50px 50px";
-    deleteSelectedButton.style.backgroundColor = "light-red";
+    deleteSelectedButton.style.backgroundColor = "D3D3D3";
     deleteSelectedButton.innerText = "Delete Selected";
     deleteSelectedButton.addEventListener("click", deleteSelected);
     deleteSelectedButton.setAttribute("type", "Button");
@@ -38,7 +38,7 @@ let addSection = () => {
       pageButtons.classList.add("buttonPadding");
       pageButtons.style.borderRadius = "100%";
       pageButtons.style.border = "1px solid black";
-      pageButtons.style.backgroundColor = "white";
+      pageButtons.style.backgroundColor = "D3D3D3";
       pageButtons.innerText = i + 1;
       section.appendChild(pageButtons);
     }
@@ -78,6 +78,7 @@ let checkBoxSelection = (e) => {
     deleteSelected.disabled = true;
   }
   console.log(selectedRowIds);
+  selectedRowIds = [];
 };
 
 function deleteSelected(e) {
@@ -232,12 +233,14 @@ let createTable = (rowsData) => {
     let deleteButton = document.createElement("button");
 
     deleteButton.classList.add("buttonPadding");
+    deleteButton.classList.add("deleteButtons");
     deleteButton.style.border = "white";
     deleteButton.style.borderRadius = "5px";
-    deleteButton.style.backgroundColor = "red";
+    deleteButton.style.backgroundColor = "D3D3D3";
     deleteButton.setAttribute("id", rowId);
     deleteButton.addEventListener("click", deleteTableRow);
     deleteButton.setAttribute("type", "Button");
+    deleteButton.setAttribute("disabled", true);
     deleteButton.innerText = "Delete";
     actionCell.appendChild(deleteButton);
 
