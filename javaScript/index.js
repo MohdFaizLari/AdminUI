@@ -259,6 +259,7 @@ let createTable = (rowsData) => {
 
 async function inputData() {
   const res = await fetch(
+    // By the help of await create table will not call until the input data is fetched.
     "https://geektrust.s3-ap-southeast-1.amazonaws.com/adminui-problem/members.json",
     {
       method: "GET",
@@ -270,3 +271,39 @@ async function inputData() {
   // console.log(rowsData);
 }
 inputData();
+
+//--------------------------------Search Bar Function---------------->
+
+// By the help of this function we will store the user input from search bar and then we will search
+// that data in our data base(Input JSON).
+
+function searchBarFunc() {
+  let inputFieldData = document.getElementById("searchBox");
+  let inputFieldValue = inputFieldData.value;
+  console.log(inputFieldValue);
+  let rowDataValue = [];
+
+  if (!rowsData.length) {
+    console.log("Sorry No Result Found!");
+  }
+
+  for (let i = 0; i < rowsData.length; i++) {
+    let rowData = rowsData[i];
+    if (inputFieldValue === rowData.name) {
+      rowDataValue.push(rowData);
+      // console.log(rowDataValue);
+    } else if (inputFieldValue === rowData.email) {
+      rowDataValue.push(rowData);
+      // console.log(rowDataValue);
+    } else if (inputFieldValue === rowData.role) {
+      rowDataValue.push(rowData);
+      // console.log(rowDataValue);
+    }
+  }
+
+  if (rowDataValue.length > 0) {
+    console.log(rowDataValue);
+  }
+
+  // rerenderTable(rowDataValue); // In this function we need to send sorted array object according to user input.
+}
