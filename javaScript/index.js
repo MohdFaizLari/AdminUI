@@ -8,6 +8,7 @@ let addSection = () => {
     //<---------------This condition will check the rowsData length and it will work accordingly----------->
 
     let section = document.createElement("section"); //-----------> Creating section ele here.
+    section.setAttribute('id','bottomSection');
     section.style.display = "flex";
     section.style.alignItems = "center";
     section.style.width = "100%";
@@ -124,7 +125,7 @@ let createTable = (rowsData) => {
   //------------This is an arrow function.
   console.log("create table");
   if (!rowsData.length) {
-    /* ----> This condition is checking wheter the input file contains some data or it's blank only
+    /* ----> This condition is checking whether the input file contains some data or it's blank only
     according to that the code will work --------> */
 
     let noDataDiv = document.createElement("div");
@@ -150,6 +151,7 @@ let createTable = (rowsData) => {
     let tableRow = document.createElement("div"); // ---> To create new div ele.
     tableRow.classList.add("tableRows"); //----> To add existing class of CSS in the element.
     tableRow.setAttribute("id", `row-${rowId}`);
+    tableRow.setAttribute("id", `allTableRows`);
 
     // <-------------------Method-2-------------------------------->
     // element.setAttribute() -------> To set attributes.
@@ -272,6 +274,23 @@ async function inputData() {
 }
 inputData();
 
+//-----------------------------------Table re-render Function----------------->
+
+// By the help of this function we will create the row according to user input in search bar.
+
+function reRenderTable(sortedRowData) {
+  // let tableBody = document.getElementById(`tableBody`);
+  for (let i = 0; i < rowsData.length; i++) {
+    let tableRows = document.getElementById(`allTableRows`);
+    tableRows.parentNode.removeChild(tableRows);
+  }
+  let bottomSection = document.getElementById('bottomSection');
+  bottomSection.parentNode.removeChild(bottomSection);
+  createTable(sortedRowData);
+
+}
+
+
 //--------------------------------Search Bar Function---------------->
 
 // By the help of this function we will store the user input from search bar and then we will search
@@ -281,6 +300,7 @@ function searchBarFunc() {
   let inputFieldData = document.getElementById("searchBox");
   let inputFieldValue = inputFieldData.value;
   console.log(inputFieldValue);
+
   let rowDataValue = [];
 
   if (!rowsData.length) {
@@ -303,7 +323,15 @@ function searchBarFunc() {
 
   if (rowDataValue.length > 0) {
     console.log(rowDataValue);
+    reRenderTable(rowDataValue); // In this function we need to send sorted array object according to user input.
   }
 
-  // rerenderTable(rowDataValue); // In this function we need to send sorted array object according to user input.
+  if (!inputFieldValue) {
+    // By the help of this condition we will check if the input field is empty in the search bar
+    // so we will re-print the original data.
+
+    window.location.reload(true); // To reload the web page forcefully.
+    createTable(rowsData);
+  }
+
 }
