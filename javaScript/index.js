@@ -79,8 +79,9 @@ let checkBoxSelection = (e) => {
     deleteSelected.disabled = true;
   }
   console.log(selectedRowIds);
-  selectedRowIds = [];
+  
 };
+
 
 function deleteSelected(e) {
   console.log(e);
@@ -151,7 +152,6 @@ let createTable = (rowsData) => {
     let tableRow = document.createElement("div"); // ---> To create new div ele.
     tableRow.classList.add("tableRows"); //----> To add existing class of CSS in the element.
     tableRow.setAttribute("id", `row-${rowId}`);
-    tableRow.setAttribute("id", `allTableRows`);
 
     // <-------------------Method-2-------------------------------->
     // element.setAttribute() -------> To set attributes.
@@ -242,7 +242,7 @@ let createTable = (rowsData) => {
     deleteButton.setAttribute("id", rowId);
     deleteButton.addEventListener("click", deleteTableRow);
     deleteButton.setAttribute("type", "Button");
-    deleteButton.setAttribute("disabled", true);
+    // deleteButton.setAttribute("disabled", true);
     deleteButton.innerText = "Delete";
     actionCell.appendChild(deleteButton);
 
@@ -279,9 +279,11 @@ inputData();
 // By the help of this function we will create the row according to user input in search bar.
 
 function reRenderTable(sortedRowData) {
-  // let tableBody = document.getElementById(`tableBody`);
+  
   for (let i = 0; i < rowsData.length; i++) {
-    let tableRows = document.getElementById(`allTableRows`);
+    let tableRows = rowsData[i];
+    let tableRowsId = tableRows.id;
+    tableRows = document.getElementById(`row-${tableRowsId}`);
     tableRows.parentNode.removeChild(tableRows);
   }
   let bottomSection = document.getElementById('bottomSection');
