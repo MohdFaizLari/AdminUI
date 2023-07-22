@@ -3,12 +3,15 @@ let rowsData = [];
 
 let selectedRowIds = [];
 
+let errorMessage = document.createElement("div");
+errorMessage.setAttribute("id", "errorMessage");
+
 let addSection = () => {
   if (rowsData.length > 0) {
     //<---------------This condition will check the rowsData length and it will work accordingly----------->
 
     let section = document.createElement("section"); //-----------> Creating section ele here.
-    section.setAttribute('id','bottomSection');
+    section.setAttribute("id", "bottomSection");
     section.style.display = "flex";
     section.style.alignItems = "center";
     section.style.width = "100%";
@@ -79,9 +82,7 @@ let checkBoxSelection = (e) => {
     deleteSelected.disabled = true;
   }
   console.log(selectedRowIds);
-  
 };
-
 
 function deleteSelected(e) {
   console.log(e);
@@ -279,19 +280,18 @@ inputData();
 // By the help of this function we will create the row according to user input in search bar.
 
 function reRenderTable(sortedRowData) {
-  
   for (let i = 0; i < rowsData.length; i++) {
     let tableRows = rowsData[i];
     let tableRowsId = tableRows.id;
     tableRows = document.getElementById(`row-${tableRowsId}`);
-    tableRows.parentNode.removeChild(tableRows);
+    if (tableRows) {
+      tableRows.parentNode.removeChild(tableRows);
+    }
   }
-  let bottomSection = document.getElementById('bottomSection');
+  let bottomSection = document.getElementById("bottomSection");
   bottomSection.parentNode.removeChild(bottomSection);
   createTable(sortedRowData);
-
 }
-
 
 //--------------------------------Search Bar Function---------------->
 
@@ -304,10 +304,6 @@ function searchBarFunc() {
   console.log(inputFieldValue);
 
   let rowDataValue = [];
-
-  if (!rowsData.length) {
-    console.log("Sorry No Result Found!");
-  }
 
   for (let i = 0; i < rowsData.length; i++) {
     let rowData = rowsData[i];
@@ -323,17 +319,39 @@ function searchBarFunc() {
     }
   }
 
+  console.log(rowDataValue);
+
   if (rowDataValue.length > 0) {
-    console.log(rowDataValue);
-    reRenderTable(rowDataValue); // In this function we need to send sorted array object according to user input.
+    reRenderTable(rowDataValue);
+  } else if (!rowDataValue.length) {
+    if (inputFieldValue) {
+      for (let i = 0; i < rowsData.length; i++) {
+        let tableRows = rowsData[i];
+        let tableRowsId = tableRows.id;
+        tableRows = document.getElementById(`row-${tableRowsId}`);
+        if (tableRows) {
+          tableRows.parentNode.removeChild(tableRows);
+        }
+      }
+      let bottomSection = document.getElementById("bottomSection");
+      bottomSection.parentNode.removeChild(bottomSection);
+      errorMessage.style.width = "100%";
+      errorMessage.style.height = "100%";
+      errorMessage.innerText = "No matching data to show!";
+      errorMessage.style.textAlign = "center";
+      errorMessage.style.fontWeight = "bolder";
+      errorMessage.style.marginTop = "20%";
+      let tableBody = document.getElementById("tableBody"); //---------------> Selecting tablebody location.
+      tableBody.appendChild(errorMessage);
+    } else if (!inputFieldValue) {
+      // By the help of this condition we will check if the input field is empty in the search bar
+      // so we will re-print the original data.
+      // window.location.reload(true); // To reload the web page forcefully.
+      // createTable(rowsData);
+      let errorCode = document.getElementById("errorMessage");
+      errorCode.parentNode.removeChild(errorCode);
+      createTable(rowsData);
+      // addSection();
+    }
   }
-
-  if (!inputFieldValue) {
-    // By the help of this condition we will check if the input field is empty in the search bar
-    // so we will re-print the original data.
-
-    window.location.reload(true); // To reload the web page forcefully.
-    createTable(rowsData);
-  }
-
 }
