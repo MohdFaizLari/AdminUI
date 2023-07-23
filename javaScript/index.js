@@ -301,19 +301,23 @@ function reRenderTable(sortedRowData) {
 function searchBarFunc() {
   let inputFieldData = document.getElementById("searchBox");
   let inputFieldValue = inputFieldData.value;
-  console.log(inputFieldValue);
 
   let rowDataValue = [];
+  let modinputFieldValue = inputFieldValue.toUpperCase();
+  console.log(modinputFieldValue);
 
   for (let i = 0; i < rowsData.length; i++) {
     let rowData = rowsData[i];
-    if (inputFieldValue === rowData.name) {
+    let rowDataName = rowData.name.toUpperCase();
+    let rowDataEmail = rowData.email.toUpperCase();
+    let rowDataRole = rowData.role.toUpperCase();
+    if (modinputFieldValue === rowDataName) {
       rowDataValue.push(rowData);
       // console.log(rowDataValue);
-    } else if (inputFieldValue === rowData.email) {
+    } else if (modinputFieldValue === rowDataEmail) {
       rowDataValue.push(rowData);
       // console.log(rowDataValue);
-    } else if (inputFieldValue === rowData.role) {
+    } else if (modinputFieldValue === rowDataEmail) {
       rowDataValue.push(rowData);
       // console.log(rowDataValue);
     }
@@ -349,8 +353,13 @@ function searchBarFunc() {
       // window.location.reload(true); // To reload the web page forcefully.
       // createTable(rowsData);
       let errorCode = document.getElementById("errorMessage");
-      errorCode.parentNode.removeChild(errorCode);
-      createTable(rowsData);
+      if (errorCode) {
+        errorCode.parentNode.removeChild(errorCode);
+        createTable(rowsData);
+      } else if (!errorCode) {
+        reRenderTable(rowsData);
+      }
+
       // addSection();
     }
   }
