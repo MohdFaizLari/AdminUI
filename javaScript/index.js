@@ -36,7 +36,6 @@ let addSection = (tableData) => {
     //--------------Adding page numbers here by the help of loop--------------->
 
     let n = Math.ceil(tableData.length / 10); //----------> Using math.ceil() method to store the value.
-    // console.log(tableData.length);
     for (let i = 0; i < n; i++) {
       let pageButtons = document.createElement("button");
       pageButtons.classList.add("buttonPadding");
@@ -44,14 +43,14 @@ let addSection = (tableData) => {
       pageButtons.style.border = "1px solid black";
       pageButtons.style.backgroundColor = "D3D3D3";
       pageButtons.innerText = i + 1;
-      // pageButtons.addEventListener("click", createTable(i));
       section.appendChild(pageButtons);
     }
-    // console.log(tableData.length, "Delete");
     let tableBody = document.getElementById("tableBody");
     tableBody.appendChild(section); //----------> Inserting section part here in the table body.
   }
 };
+
+// ------------------------This function will be used to update the value of Name cells---------------------->
 
 function editNameField(e) {
   let updatedNameValue = e.target.value;
@@ -66,12 +65,13 @@ function editNameField(e) {
   }
 }
 
+// ------------------------This function will be used to update the value of Email cells---------------------->
+
 function editEmailField(e) {
   let updatedEmailValue = e.target.value;
   let inputCellID = e.target.id;
   let cellIDSplit = inputCellID.split("");
   let updatedCellId = cellIDSplit.pop();
-  // console.log(inputCellID, updatedCellId);
   if (typeof updatedEmailValue === "string") {
     let emailInputField = document.getElementById(
       `email-input-${updatedCellId}`
@@ -81,6 +81,8 @@ function editEmailField(e) {
     emailRowSpan.innerText = updatedEmailValue;
   }
 }
+
+// ------------------------This function will be used to update the value of Role cells---------------------->
 
 function editUserRoles(e) {
   let updatedRoleValue = e.target.value;
@@ -95,8 +97,10 @@ function editUserRoles(e) {
   }
 }
 
+//--------------------------By the use of this function we are enabling edit option in our UI----------------->
+
 let editTableRow = (e) => {
-  let rowId = e.target.id;
+  let rowId = e.target.id; //----------> Receiving from edit button.
   let nameRowSpan = document.getElementById(`name-span-${rowId}`);
   let nRCellInnerText = nameRowSpan.innerText;
 
@@ -147,8 +151,6 @@ let editTableRow = (e) => {
       roleSelect.appendChild(roleSelectOption);
     }
   }
-
-  // console.log(e);
 };
 
 let deleteTableRow = (e) => {
@@ -331,7 +333,6 @@ let createTable = (rowsData) => {
     //-----------------Edit button------------------------>
 
     let editButton = document.createElement("button");
-    // editButton.onclick = ;
     editButton.classList.add("buttonPadding");
     editButton.style.border = "1px solid black";
     editButton.style.borderRadius = "5px";
@@ -354,7 +355,6 @@ let createTable = (rowsData) => {
     deleteButton.setAttribute("id", rowId);
     deleteButton.addEventListener("click", deleteTableRow);
     deleteButton.setAttribute("type", "Button");
-    // deleteButton.setAttribute("disabled", true);
     deleteButton.innerText = "Delete";
     actionCell.appendChild(deleteButton);
 
@@ -382,7 +382,6 @@ async function inputData() {
 
   rowsData = await res.json();
   createTable(rowsData);
-  // console.log(rowsData);
 }
 inputData();
 
@@ -424,13 +423,10 @@ function searchBarFunc() {
     let rowDataRole = rowData.role.toUpperCase();
     if (modinputFieldValue === rowDataName) {
       rowDataValue.push(rowData);
-      // console.log(rowDataValue);
     } else if (modinputFieldValue === rowDataEmail) {
       rowDataValue.push(rowData);
-      // console.log(rowDataValue);
     } else if (modinputFieldValue === rowDataRole) {
       rowDataValue.push(rowData);
-      // console.log(rowDataValue);
     }
   }
 
@@ -461,11 +457,9 @@ function searchBarFunc() {
       tableBody.appendChild(errorMessage);
     } else if (!inputFieldValue) {
       isSearchApply = false;
-      searchQueryData = [];
+      // searchQueryData = [];
       // By the help of this condition we will check if the input field is empty in the search bar
       // so we will re-print the original data.
-      // window.location.reload(true); // To reload the web page forcefully.
-      // createTable(rowsData);
       let errorCode = document.getElementById("errorMessage");
       if (errorCode) {
         errorCode.parentNode.removeChild(errorCode);
@@ -473,8 +467,6 @@ function searchBarFunc() {
       } else if (!errorCode) {
         reRenderTable(rowsData);
       }
-
-      // addSection();
     }
   }
 }
